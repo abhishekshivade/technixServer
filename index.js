@@ -3,33 +3,22 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoutes = require("./userRoutes.js");
+const dotenv = require('dotenv')
 
+dotenv.config()
 const app = express();
-const router = express.Router();
-
-// const corsOptions = {
-//   origin: "https://localhost:3000",
-//   optionSucessStatus: 200,
-// };
 
 app.use(cors());
-// app.use(cors(corsOptions));
-
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.header("Access-Control-Allow-Headers", "Content-Type");
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   next();
-// });
 
 app.use(bodyParser.json());
 
+
+
 const port = 4000;
+const mongoURI =process.env.MONGODB_URI
 
 mongoose
-  // .connect("mongodb://127.0.0.1:27017/technix")
-  .connect("mongodb+srv://abhishekshivade:Abhi%400037@hrms.xgr7jhd.mongodb.net/technix")
+  .connect(mongoURI)
   .then((x) => console.log("Connected to MongoDB"))
   .catch((error) => console.error("error connecting mongoDb : ", error));
 
